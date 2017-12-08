@@ -39,22 +39,24 @@ $(function() {
 
         //ensure that the menu is hidden by default or on page load
          it('is hidden by default', function() {
-           const menu = $('.menu-hidden');
-           expect(menu.length).toBeGreaterThan(0);
+           const bodyTrue = $('body').hasClass('menu-hidden');
+           expect(bodyTrue).toBe(true);
          });
 
          //enusre that the visibility of the menu changes on each click
          it ('menu changes visibility on click', function() {
+            let initialBody = $('body').hasClass('menu-hidden');
             const menuLink = $('.menu-icon-link');
             menuLink.trigger('click'); //Trigger click to show menu
 
-            let menu = $('.menu-hidden');
-            expect(menu.length).toBe(0);
+            let bodyTrue = $('body').hasClass('menu-hidden');
+            expect(bodyTrue).not.toBe(initialBody);
+
+            initialBody = bodyTrue;
 
             menuLink.trigger('click'); //Trigger click to hide menu
-            menu = $('.menu-hidden');
-
-            expect(menu.length).toBe(1);
+            bodyTrue = $('body').hasClass('menu-hidden');
+            expect(bodyTrue).not.toBe(initialBody);
           });
     });
 
@@ -66,17 +68,19 @@ $(function() {
 
          //ensure that there is at elast one entry after loadFeed is called
          it('ensure single entry is in feed container', function() {
-           const feed = $('.feed');
+           const feedEntry = $('.feed .entry');
            expect(loadFeed).toBeDefined();
-           expect(feed.children().length).toBeGreaterThan(0);
+           expect(feedEntry.length).toBeGreaterThan(0);
          })
     });
 
     //test new feeds
     describe('New Feed Selection', function() {
          //asynchronous Function to call loadfeed before the test is carried out
+         let feed = '';
+
          beforeEach(function(done) {
-           const feed = $('.feed').html();
+           feed = $('.feed').html();
            loadFeed(0, done);
          });
 
