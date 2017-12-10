@@ -69,7 +69,6 @@ $(function() {
          //ensure that there is at elast one entry after loadFeed is called
          it('ensure single entry is in feed container', function() {
            const feedEntry = $('.feed .entry');
-           expect(loadFeed).toBeDefined();
            expect(feedEntry.length).toBeGreaterThan(0);
          })
     });
@@ -86,7 +85,10 @@ $(function() {
 
          //test to ensure that new feed is loaded every time LoadFeed is called
          it ('to test that new feed is loaded on loadFeed', function() {
-           const newFeed = $('feed').html();
+           let newFeed = '';
+           loadFeed(1, function() {
+              newFeed = $('.feed').html();
+           });
            expect(newFeed).not.toEqual(feed);
          });
      });
