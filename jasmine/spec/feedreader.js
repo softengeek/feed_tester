@@ -82,13 +82,14 @@ $(function() {
          });
 
          //test to ensure that new feed is loaded every time LoadFeed is called
-         it ('to test that new feed is loaded on loadFeed', function() {
+         it ('to test that new feed is loaded on loadFeed', function(done) {
            feed = $('.feed').html();
            let newFeed = '';
            loadFeed(1, function() {
               console.log('finished loading feed');
               newFeed = $('.feed').html();
               expect(newFeed).not.toEqual(feed);
+              done();
            });
          });
      });
