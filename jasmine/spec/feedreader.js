@@ -76,20 +76,20 @@ $(function() {
     //test new feeds
     describe('New Feed Selection', function() {
          //asynchronous Function to call loadfeed before the test is carried out
-         let feed = '';
 
          beforeEach(function(done) {
-           feed = $('.feed').html();
            loadFeed(0, done);
          });
 
          //test to ensure that new feed is loaded every time LoadFeed is called
          it ('to test that new feed is loaded on loadFeed', function() {
+           feed = $('.feed').html();
            let newFeed = '';
            loadFeed(1, function() {
+              console.log('finished loading feed');
               newFeed = $('.feed').html();
+              expect(newFeed).not.toEqual(feed);
            });
-           expect(newFeed).not.toEqual(feed);
          });
      });
 
